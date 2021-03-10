@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>根据银行卡号查询银行名称</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+    </style>
+    <style>
+        .container {
+            width: 260px;
+            margin: 30px auto;
+        }
+
+        .red {
+            color: red;
+        }
+
+        input {
+            width: 160px;
+            padding: 9px 10px;
+            border: 1px solid #dadada;
+            border-radius: 4px 0 0 4px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        button#checkBtn {
+            color: #fff;
+            padding: 8px 15px;
+            background-color: #86cd2e;
+            margin-top: 30px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #86cd2e;
+        }
+
+        button#clearBtn {
+            background: #00bcd4;
+            border: 0;
+            padding: 0 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 30px;
+        }
+
+        #result div {
+            margin-bottom: 15px;
+        }
+
+        #result div span {
+            color: #ff5555;
+        }
+
+        .input-box {
+            display: flex;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div>银行卡号：</div>
+    <div class="input-box">
+        <input type="text" value="" id="cardNum" alt="银行卡号"/>
+        <button id="clearBtn">清除卡号</button>
+    </div>
+    <div>
+        <button id="checkBtn">查询银行名称</button>
+    </div>
+    <div id="result"></div>
+</div>
+</body>
+<script>
+    let Bank = new BankSearch();
+    let dom = document.getElementById('checkBtn');
+    dom.addEventListener('click', function () {
+        let cardNmu = document.getElementById('cardNum').value;
+        let result = document.getElementById('result');
+        if (cardNmu) {
+            Bank.getBankBin(cardNmu, (e, data) => {
+                if (data) {
+                    console.log(data);
+                    result.innerHTML = '<div>银行名称：<span>' + data.bankName + '</span></div><div>银行卡类型：<span>' + data.cardTypeName + '</span></div>'
+                } else {
+                    console.log(e)
+                    result.innerHTML = '<div><span>' + e + '</span></div>';
+                }
+            });
+        } else {
+            alert('请输入银行卡号');
+        }
+    });
+
+    // 清除卡号
+    let clearDom = document.getElementById('clearBtn');
+    clearDom.addEventListener('click', function () {
+        document.getElementById('cardNum').value = '';
+    })
+</script>
+
+</html>
