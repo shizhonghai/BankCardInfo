@@ -99,7 +99,7 @@ function _getBankInfoByCardNoAsync(cardNo, cbf) {
   let errMsg = ''
   _getBankInfoByCardNo(cardNo, function (err, info) {
     if (!err && info) {
-      console.log(module)
+      // console.log(module)
       return cbf(null, info)
     } else {
       let https = require('https')
