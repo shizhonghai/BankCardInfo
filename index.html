@@ -254,7 +254,7 @@
     </div>
 
 </div>
-<script type="text/javascript" src="./bundle.39aba2.js"></script></body>
+<script type="text/javascript" src="./bundle.0e1833.js"></script></body>
 <script>
 
     function showPage(type) {
@@ -284,8 +284,8 @@
                         });
                         // console.log(data);
                     } else {
-                        bankNameList.push({'序号': i + 1, ...person});
-                        dom.append('<div>' + e + '</div>');
+                        bankNameList.push({'序号': '<em>' + (i + 1) + '</em>', ...person, '银行名称': '<em>--</em>', '银行卡类型': '<em>--</em>'});
+                        dom.append('<div>【序号为:' + (i + 1) + '】的银行卡号' + e + '</div>');
                         console.log(e)
                     }
                 });
@@ -454,6 +454,7 @@
     }
 
     function renderTable(data) {
+        console.log('data', data);
         let html = '<table>';
         data.forEach(function (item, i) {
             // 列表头
@@ -515,16 +516,17 @@
             $(this).find('td').each(function () {
                 td.push($(this).html().replace(reg, ''));
             });
-            td.shift(); // 移除第一个
+            // td.shift(); // 移除第一个,保留序号那列
             csv.push(td.join(','));
         });
         csv.shift();
-        th.shift();
+        // th.shift();
         return [th.join(',')].concat(csv).join('\n');
     }
 
     // csv转sheet对象
     function csv2sheet(csv) {
+        console.log(csv);
         let sheet = {}; // 将要生成的sheet
         csv = csv.split('\n');
         csv.forEach(function (row, i) {
